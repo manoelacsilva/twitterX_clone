@@ -18,9 +18,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from twitter.views import home
+from twitter.views import tweet_list
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('', home),
+    path('', tweet_list),
 ]
