@@ -18,9 +18,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from twitter.views import tweet_list
+from twitter.views import TweetListView, TweetCreateView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path('', tweet_list),
+    path('', TweetListView.as_view(), name="tweet_list"),
+    path("create", TweetCreateView.as_view(), name="tweet_create"),
 ]

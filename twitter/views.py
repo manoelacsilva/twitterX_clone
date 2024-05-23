@@ -1,6 +1,12 @@
-from django.shortcuts import render
+from django.views.generic import ListView, CreateView
+from django.urls import reverse_lazy
+from .models import Tweet
 
-# Create your views here.
+class TweetListView(ListView):
+    model = Tweet
 
-def tweet_list(request):
-    return render(request, "twitter/tweet_list.html")
+class TweetCreateView(CreateView):
+    model = Tweet
+    fields = ["title", "deadline"]
+    success_url = reverse_lazy("tweet_list")
+
