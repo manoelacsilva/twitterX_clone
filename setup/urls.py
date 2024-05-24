@@ -18,10 +18,12 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from twitter.views import TweetListView, TweetCreateView
+from twitter.views import TweetListView, TweetCreateView, TweetUpdateView, TweetDeleteView
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('', TweetListView.as_view(), name="tweet_list"),
     path("create", TweetCreateView.as_view(), name="tweet_create"),
+    path("update/<int:pk>", TweetUpdateView.as_view(), name="tweet_update"),
+    path("delete/<int:pk>", TweetDeleteView.as_view(), name="tweet_delete"),
 ]
