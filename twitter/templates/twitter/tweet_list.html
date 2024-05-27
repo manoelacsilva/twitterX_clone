@@ -12,14 +12,35 @@
         <div class="container">
             <div>
                 {% comment %} <th scope="row">{{ tweet.pk }}</th> {% endcomment %}
-                <p class="mb-2"><strong>{{ tweet.title }}</strong></p> </br>
+                <p style="color: #000">@{{ tweet.user.username }}</p>
+                <p class="alert alert-dark"><strong>{{ tweet.title }}</strong></p> </br>
                 <p>Publicado em {{ tweet.created_at }}</p>
                 {% comment %} <p>{{ tweet.deadline }}</p>
                 <p>{{ tweet.finished_at|default:"-" }}</p> {% endcomment %}
                 <p>
-                    <a href="#" class="btn btn-primary btn-sm">Curtir</a>
-                    <a href="{% url 'tweet_update' pk=tweet.pk %}" class="btn btn-secondary btn-sm">Editar</a>
-                    <a href="{% url 'tweet_delete' pk=tweet.pk %}" class="btn btn-danger btn-sm">Excluir</a>
+                    <div>
+                        {% if tweet.like_amount > 0 %}
+                            <small class="like-counter">
+                                {{ tweet.like_amount }} 
+                                {% if tweet.like_amount == 1 %}
+                                    Curtida
+                                {% elif tweet.like_amount > 1 %}
+                                    Curtidas
+                                {% endif %}
+                            </small>
+                        {% endif %}
+                        
+                        {% if user in tweet.likes.all %}
+                            <a href="{% url 'like_tweet' tweet.id %}" class="dislike-btn">Descurtir</a>
+                        {% else %}
+                            <a href="{% url 'like_tweet' tweet.id %}" class="btn btn-primary btn-sm mb-2">Curtir</a>
+                        {% endif %}              
+                    </div>       
+                    {% comment %} <a href="#" class="btn btn-primary btn-sm">Curtir</a> {% endcomment %}
+                    {% if tweet.user.id == tweet.user_id %}
+                        <a href="{% url 'tweet_update' pk=tweet.pk %}" class="btn btn-secondary btn-sm">Editar</a>
+                        <a href="{% url 'tweet_delete' pk=tweet.pk %}" class="btn btn-danger btn-sm">Excluir</a>
+                    {% endif %}
                 </p>
             </div>
         </div>
