@@ -29,6 +29,10 @@ class TweetCreateView(CreateView):
     fields = ["title"]
     success_url = reverse_lazy("tweet_list")
 
+    def form_valid(self, form):
+        form.instance.user = self.request.user
+        return super().form_valid(form)
+
 class TweetUpdateView(UpdateView):
     model = Tweet
     fields = ["title"]

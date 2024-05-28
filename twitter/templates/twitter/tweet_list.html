@@ -37,7 +37,7 @@
                         {% endif %}              
                     </div>       
                     {% comment %} <a href="#" class="btn btn-primary btn-sm">Curtir</a> {% endcomment %}
-                    {% if tweet.user.id == tweet.user_id %}
+                    {% if tweet.user.id == request.user.id %}
                         <a href="{% url 'tweet_update' pk=tweet.pk %}" class="btn btn-secondary btn-sm">Editar</a>
                         <a href="{% url 'tweet_delete' pk=tweet.pk %}" class="btn btn-danger btn-sm">Excluir</a>
                     {% endif %}
